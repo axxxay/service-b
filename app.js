@@ -35,9 +35,9 @@ app.post("/store-in-db", async (request, response) => {
     const {email, age, location, username} = request.body;
     const id = uuidv4();
     
-    // const statement = await db.prepare(`INSERT INTO user(id, username, email, age, location) VALUES(?, ?, ?, ?, ?);`)
-    // await statement.run(id, username, email, age, location)
-    // await statement.finalize();
-    await db.run(`INSERT INTO user(id, username, email, age, location) VALUES('${id}', '${username}', '${email}', ${age}, '${location}');`)
+    const statement = await db.prepare(`INSERT INTO user(id, username, email, age, location) VALUES(?, ?, ?, ?, ?);`)
+    await statement.run(id, username, email, age, location)
+    await statement.finalize();
+    // await db.run(`INSERT INTO user(id, username, email, age, location) VALUES('${id}', '${username}', '${email}', ${age}, '${location}');`)
     response.send({id});
 });
