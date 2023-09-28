@@ -1,5 +1,5 @@
 const express = require("express");
-// const cors = require('cors');
+const cors = require('cors');
 const sqlite3 = require("sqlite3")
 const {open} = require("sqlite")
 const path = require("path");
@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000;
 
 const app = express();
 app.use(express.json());
-// app.use(cors());
+app.use(cors());
 
 const dbPath = path.join(__dirname, "UserDetails.db");
 
@@ -35,9 +35,9 @@ app.post("/store-in-db", async (request, response) => {
     const {email, age, location, username} = request.body;
     const id = uuidv4();
     
-    const statement = await db.prepare(`INSERT INTO user(id, username, email, age, location) VALUES(?, ?, ?, ?, ?);`)
-    await statement.run(id, username, email, age, location)
-    await statement.finalize();
-    // await db.run(`INSERT INTO user(id, username, email, age, location) VALUES('${id}', '${username}', '${email}', ${age}, '${location}');`)
+    // const statement = await db.prepare(`INSERT INTO user(id, username, email, age, location) VALUES(?, ?, ?, ?, ?);`)
+    // await statement.run(id, username, email, age, location)
+    // await statement.finalize();
+    await db.run(`INSERT INTO user(id, username, email, age, location) VALUES('${id}', '${username}', '${email}', ${age}, '${location}');`)
     response.send({id});
 });
