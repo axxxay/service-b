@@ -1,5 +1,5 @@
 const express = require("express");
-const cors = require('cors');
+// const cors = require('cors');
 const sqlite3 = require("sqlite3")
 const {open} = require("sqlite")
 const path = require("path");
@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000;
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 
 const dbPath = path.join(__dirname, "UserDetails.db");
 
@@ -21,7 +21,7 @@ const InitializeDBAndServer = async () => {
             filename: dbPath,
             driver: sqlite3.Database
         })
-        app.listen(PORT, () => {
+        app.listen(5000, () => {
             console.log(`Server running at http://localhost:${PORT}`);
         })
     } catch (e) {
